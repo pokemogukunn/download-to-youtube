@@ -1,1 +1,29 @@
+name: Download and Upload YouTube Videos
 
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 毎日深夜に実行
+
+jobs:
+  download-and-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+      
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      
+      - name: Download video
+        run: |
+          python src/download_video.py
+
+      - name: Upload to Google Drive
+        run: |
+          python src/upload_to_drive.py
