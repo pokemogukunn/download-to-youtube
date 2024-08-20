@@ -22,3 +22,14 @@ def run_upload():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+@app.route('/run_download', methods=['POST'])
+def run_download():
+    subprocess.run(['python3', 'src/download_video.py'])
+    return redirect(url_for('index'))
+
+@app.route('/run_upload', methods=['POST'])
+def run_upload():
+    subprocess.run(['python3', 'src/upload_to_drive.py'])
+    return redirect(url_for('index'))
